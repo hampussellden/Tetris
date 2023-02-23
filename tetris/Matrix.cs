@@ -21,39 +21,75 @@ public class Matrix
 
     public bool IsInside(int r, int c)
     {
-        return true;
+        return r >= 0 && r < Rows && c >= 0 && c < Columns;
     }
 
     public bool IsEmpty(int r, int c)
     {
-        return true;
+        return IsInside(r, c) && _grid[r, c] == 0;
     }
 
-    public bool RowIsFull(int r, int c)
+    //Goes through the grid and checks for rows with no 0 value cells
+    public bool RowIsFull(int r)
     {
+        for (int c = 0; c < Columns; c++)
+        {
+            if (_grid[r, c] == 0)
+            {
+                return false; //returns false as soon as we find an empty cell
+            }
+        }
+
         return true;
     }
-
-    public bool RowIsEmpty(int r, int c)
+    
+    //Does the opposite of the above method
+    public bool RowIsEmpty(int r)
     {
+        for (int c = 0; c < Columns; c++)
+        {
+            if (_grid[r, c] != 0)
+            {
+                return false; //returns false as soon as we find an empty cell
+            }
+        }
+
         return true;
-        
     }
 
     public void ClearRow(int r)
     {
-        
+        for (int c = 0; c < Columns; c++)
+        {
+            _grid[r, c] = 0;
+        }
     }
 
     //after a row is cleared the above row needs to replace it
     public void MoveRowDown(int r, int count)
     {
-
+        for (int c = 0; c < Columns; c++)
+        {
+            _grid[r + count, c] = _grid[r, c];
+            _grid[r, c] = 0;
+        }
     }
 
     //Checks for Full rows using above methods then giving a score depending on the amount of cleared rows
     public int ClearFullRows()
     {
-        return 1;
+        int count = 0;
+        for (int r = Rows - 1; r >= 0; r--)
+        {
+            if (RowIsFull(r))
+            {
+                ClearRow(r);
+                count++;
+            } else if (count > 0)
+            {
+                MoveRowDown(r,count);
+            }
+        }
+        return count;
     }
 }
