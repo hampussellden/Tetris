@@ -2,7 +2,7 @@ namespace tetris;
 
 public class IBlock : Block
 {
-    private readonly Position[][] _tiles = new Position[][]
+    private readonly Position[][] _tiles =
     {
         new Position[] { new(1, 0), new(1, 1), new(1, 2), new(1, 3) },
         new Position[] { new(0, 2), new(1, 2), new(2, 2), new(3, 2) },
