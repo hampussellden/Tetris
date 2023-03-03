@@ -6,7 +6,6 @@ namespace tetris
         static void Main(string[] args)
         {
             var game = new Game();
-
             game.Start();
 
             while ( ! game.GameOver)
@@ -19,7 +18,8 @@ namespace tetris
                     switch (input.Key)
                     {
                         // send key presses to the game if it's not paused
-                        case ConsoleKey.UpArrow:
+                        case ConsoleKey.X:
+                        case ConsoleKey.Z:
                         case ConsoleKey.DownArrow:
                         case ConsoleKey.LeftArrow:
                         case ConsoleKey.RightArrow:
